@@ -2,52 +2,43 @@
 export default {
   data() {
     return {
-      list_data: [
-        {
-          data: 'homework'
-        },
-        {
-          data: 'test'
-        }
-      ],
-      input: {
-        input_data: '',
-      }
+      newTodoText: '',
+      todos: [],
     }
   },
   methods: {
-    addItem() {
-      this.list_data.push({
-        data: this.input.input_data,
+    addTodo() {
+      this.todos.push({
+        isDone: false,
+        text: this.newTodoText,
       })
+      newTodoText = ''
     },
-    deleteItem() {
-
+    deleteTodo() {
+      this.todos = this.todos.filter((todo) => !todo.isDone)
     },
-  }
+  },
 }
 </script>
 
 <template>
   <h2 id="title">ToDoアプリ</h2>
+
   <br/><br/>
-  <input type="text" v-model="input.input_data"/>
-  <button @click="addItem">追加</button>
-  <button @click="deleteItem">削除</button>
+  <input type="text" v-model="newTodoText" />
+  <button @click="addTodo">追加</button>
+  <button @click="deleteTodo">削除</button>
   <br/><br/>
+
   <p>リスト項目</p>
-  <div v-for="item in list_data">
-    <input type="checkbox"/>
-    <span>{{ item.data }}</span>
-  </div>
+  <li v-for="todo in todos">
+    <input type="checkbox" v-model="todo.isDone"/>
+    <span :class="{'todo-done': todo.isDone}">{{ todo.text }}</span>
+  </li>
 
 </template>
 
 <style>
-#title {
-  top: 20px;
-}
-
 body {
   background-color: #eee;
 }
