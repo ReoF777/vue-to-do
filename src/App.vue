@@ -9,25 +9,36 @@ export default {
         {
           data: 'test'
         }
-      ]
+      ],
+      input: {
+        input_data: '',
+      }
     }
   },
-  methods: {}
+  methods: {
+    addItem() {
+      this.list_data.push({
+        data: this.input.input_data,
+      })
+    },
+    deleteItem() {
+
+    },
+  }
 }
 </script>
 
 <template>
   <h2 id="title">ToDoアプリ</h2>
   <br/><br/>
-  <input type="text"/>
-  <button>追加</button>
-  <button>削除</button>
+  <input type="text" v-model="input.input_data"/>
+  <button @click="addItem">追加</button>
+  <button @click="deleteItem">削除</button>
   <br/><br/>
   <p>リスト項目</p>
   <div v-for="item in list_data">
     <input type="checkbox"/>
-    <span>テスト</span>
-    <p>{{ data }}</p>
+    <span>{{ item.data }}</span>
   </div>
 
 </template>
