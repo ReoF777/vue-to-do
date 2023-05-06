@@ -12,7 +12,7 @@ export default {
         isDone: false,
         text: this.newTodoText,
       })
-      newTodoText = ''
+      this.newTodoText = ''
     },
     deleteTodo() {
       this.todos = this.todos.filter((todo) => !todo.isDone)
@@ -31,11 +31,14 @@ export default {
   <br/><br/>
 
   <p>リスト項目</p>
-  <li v-for="todo in todos">
-    <input type="checkbox" v-model="todo.isDone"/>
-    <span :class="{'todo-done': todo.isDone}">{{ todo.text }}</span>
-  </li>
-
+  <p v-if="todos.length == 0">未投稿です。</p>
+  <ui v-else>
+    <li v-for="todo in todos">
+      <input type="checkbox" v-model="todo.isDone"/>
+      <span :class="{'todo-done': todo.isDone}">{{ todo.text }}</span>
+    </li>
+  </ui>
+  
 </template>
 
 <style>
